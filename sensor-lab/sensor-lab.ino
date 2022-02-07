@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-#include<math.h>
-=======
 /*
 * Carnegie Mellon University Mechatronics Spring 2022: Team 5
 * Sensors Lab Code
@@ -10,6 +7,8 @@
 *          Ignacio Peon Zapata (ipeon)
 *          Sahil Saini (sssaini)
 */
+
+#include<math.h>
 
 // Pin assignments
 const int ECHO_PIN = 11;
