@@ -1,4 +1,12 @@
-
+/*
+* Carnegie Mellon University Mechatronics Spring 2022: Team 5
+* Sensors Lab Code
+* Authors: Felipe Borja (fborja)
+*          Brandon Wang ()
+*          Jaiden Napier ()
+*          Ignacio Peon Zapata ()
+*          Sahil Saini ()
+*/
 
 // Pin assignments
 const int ECHO_PIN = 11;
