@@ -2,10 +2,10 @@
 * Carnegie Mellon University Mechatronics Spring 2022: Team 5
 * Sensors Lab Code
 * Authors: Felipe Borja (fborja)
-*          Brandon Wang ()
-*          Jaiden Napier ()
-*          Ignacio Peon Zapata ()
-*          Sahil Saini ()
+*          Brandon Wang (bcwang)
+*          Jaiden Napier (jinapier)
+*          Ignacio Peon Zapata (ipeon)
+*          Sahil Saini (sssaini)
 */
 
 // Pin assignments
@@ -13,13 +13,24 @@ const int ECHO_PIN = 11;
 const int TRIG_PIN = 12;
 const int POT_PIN = A0;
 
-// Global state
+// Global states
 char last, readIn;
 
 void setup() {
+  Serial.println("echatronic Design Sensors Lab: Team SUCC");
+  printMenu();
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   Serial.begin (9600);
+}
+
+void printMenu(){
+  Serial.println("The character commands are as follows:");
+  Serial.println(" u: Show Ultrasonic Distance Sensor measurements (in inches).");
+  Serial.println(" p: Show potentiometer measurements.");
+  Serial.println(" i: Show IR Distance sensor measurements (in inches).");
+  Serial.println(" m: Print this menu of options.");
+  Serial.println("To continue, insert the character of the option you want and hit 'Enter'.");
 }
 
 // Ultrasonic Distance Sensor
@@ -42,7 +53,7 @@ void readUDS() {
 void readPot() {
   // get output num from rotpot and convert to voltage
   double pot_out = analogRead(POT_PIN);
-  double volt_out = (potVolt/1023.0)*5.0;
+  double volt_out = (pot_out/1023.0)*5.0;
 
   Serial.print("Sensor Output: ");
   Serial.print(pot_out, 3);
@@ -67,9 +78,12 @@ void flagSwitch(char c) {
     case 'i':
       readIR();
       break;
+    case 'm':
+      printMenu();
+      break;
     default:
       Serial.print(c);
-      Serial.println(" is not a valid input. Please enter 'u', 'p', or 'i'.");
+      Serial.println(" is not a valid input. Please enter 'u', 'p', 'i', or 'm'.");
   }
 }
 
