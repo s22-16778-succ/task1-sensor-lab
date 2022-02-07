@@ -103,22 +103,16 @@ void readIR(){
   IR_Sum = IR_Sum+value;
   IR_Count = IR_Count + 1;
   
-  if (IR_Count == 30)
-    {
+  if (IR_Count == 30){
     float v = (IR_Sum/IR_Count); // average voltage over last 30 samples
-
-    if (v <= 585) // only outputs if the average is greater than the output at 10cm since the sensor is rated for 10-80cm
-      {
+    if (v <= 585){ // only outputs if the average is greater than the output at 10cm since the sensor is rated for 10-80cm
       float x = sqrt(-a/(c-v) + pow(b/(2*(c-v)),2)) - b/(2*(c-v));
-       
       Serial.println("Distance = "+String(x)+(" cm"));  //display the string e.g "Distance = 40 cm"
-
-     }
+    }
     IR_Sum = 0;
     IR_Count = 0;
-  }
-    
-   delay(100);//ten smaples per second
+  }   
+  delay(100);//ten smaples per second
 }
   
 
