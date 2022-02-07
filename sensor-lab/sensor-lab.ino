@@ -28,11 +28,11 @@ float IR_Count = 0;
 char last, readIn;
 
 void setup() {
-  Serial.println("echatronic Design Sensors Lab: Team SUCC");
-  printMenu();
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   Serial.begin (9600);
+  Serial.println("Mechatronic Design Sensors Lab: Team SUCC");
+  printMenu();  
 }
 
 // This function prints character options in a menu through the Serial Monitor.
