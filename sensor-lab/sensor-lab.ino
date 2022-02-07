@@ -10,16 +10,18 @@
 *          Ignacio Peon Zapata (ipeon)
 *          Sahil Saini (sssaini)
 */
->>>>>>> 199acc0a1a218b6d3171d364b678098fefd7b03a
 
 // Pin assignments
 const int ECHO_PIN = 11;
 const int TRIG_PIN = 12;
 const int POT_PIN = A0;
 const int IR_PIN = A1;
+
+// Constants for IR sensor quadratic formula
 const float a = -8169.1;
 const float b = 4789.2;
 const float c = 18.8;
+// Variables for IR sensor function
 float IR_Sum = 0;
 float IR_Count = 0;
 
