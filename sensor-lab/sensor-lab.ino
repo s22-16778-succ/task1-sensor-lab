@@ -24,6 +24,7 @@ void setup() {
   Serial.begin (9600);
 }
 
+// This function prints character options in a menu through the Serial Monitor.
 void printMenu(){
   Serial.println("The character commands are as follows:");
   Serial.println(" u: Show Ultrasonic Distance Sensor measurements (in inches).");
@@ -31,6 +32,27 @@ void printMenu(){
   Serial.println(" i: Show IR Distance sensor measurements (in inches).");
   Serial.println(" m: Print this menu of options.");
   Serial.println("To continue, insert the character of the option you want and hit 'Enter'.");
+}
+
+// This function handles the input commands from the user.
+void flagSwitch(char c) {
+  switch (c) {
+    case 'u':
+      readUDS();
+      break;
+    case 'p':
+      readPot();
+      break;
+    case 'i':
+      readIR();
+      break;
+    case 'm':
+      printMenu();
+      break;
+    default:
+      Serial.print(c);
+      Serial.println(" is not a valid input. Please enter 'u', 'p', 'i', or 'm'.");
+  }
 }
 
 // Ultrasonic Distance Sensor
@@ -65,26 +87,6 @@ void readPot() {
 // IR Proximity Sensor
 void readIR(){
   
-}
-
-void flagSwitch(char c) {
-  switch (c) {
-    case 'u':
-      readUDS();
-      break;
-    case 'p':
-      readPot();
-      break;
-    case 'i':
-      readIR();
-      break;
-    case 'm':
-      printMenu();
-      break;
-    default:
-      Serial.print(c);
-      Serial.println(" is not a valid input. Please enter 'u', 'p', 'i', or 'm'.");
-  }
 }
 
 void loop() {
