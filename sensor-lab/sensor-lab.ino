@@ -20,9 +20,6 @@ const int IR_PIN = A1;
 const float a = -8169.1;
 const float b = 4789.2;
 const float c = 18.8;
-// Variables for IR sensor function
-float IR_Sum = 0;
-float IR_Count = 0;
 
 // Global states
 char last, readIn;
@@ -39,7 +36,7 @@ void setup() {
 void printMenu(){
   Serial.println("The character commands are as follows:");
   Serial.println(" u: Show Ultrasonic Distance Sensor measurements (in inches).");
-  Serial.println(" p: Show potentiometer measurements.");
+  Serial.println(" p: Show Potentiometer measurements.");
   Serial.println(" i: Show IR Distance sensor measurements (in inches).");
   Serial.println(" m: Print this menu of options.");
   Serial.println("To continue, insert the character of the option you want and hit 'Enter'.");
@@ -77,8 +74,9 @@ void readUDS() {
   double travel_time = pulseIn(ECHO_PIN, HIGH);
   double distance = travel_time / (2 * 29); // in centimeters
 
-  Serial.print("Distance (cm): ");
-  Serial.println(distance, 3);
+  Serial.print("Distance: ");
+  Serial.print(distance, 3);
+  Serial.println(" cm");
   delay(200);
 }
 
@@ -87,31 +85,29 @@ void readPot() {
   // get output num from rotpot and convert to voltage
   double pot_out = analogRead(POT_PIN);
   double volt_out = (pot_out/1023.0)*5.0;
-
-  Serial.print("Sensor Output: ");
-  Serial.print(pot_out, 3);
+  double angle_out = (pot_out/1000)*300;
+  Serial.print("Angle: ");
+  Serial.print(angle_out, 3);
+  Serial.print(" (degrees)");
   Serial.print("\tVoltage: ");
-  Serial.println(volt_out, 3);
+  Serial.print(volt_out, 3);
+  Serial.println(" (V)");
   delay(200);
 }
 
 // IR Proximity Sensor
 void readIR(){
-  int value = analogRead(IR_PIN); //Read the distance in cm and store it
 
-  IR_Sum = IR_Sum+value;
-  IR_Count = IR_Count + 1;
+  int IR_Sum = 0;
   
-  if (IR_Count == 30){
-    float v = (IR_Sum/IR_Count); // average voltage over last 30 samples
-    if (v <= 585){ // only outputs if the average is greater than the output at 10cm since the sensor is rated for 10-80cm
-      float x = sqrt(-a/(c-v) + pow(b/(2*(c-v)),2)) - b/(2*(c-v));
-      Serial.println("Distance = "+String(x)+(" cm"));  //display the string e.g "Distance = 40 cm"
-    }
-    IR_Sum = 0;
-    IR_Count = 0;
-  }   
-  delay(100);//ten smaples per second
+  for (int i = 0;i<30;i++){ 
+  int value = analogRead(IR_PIN); //Read the distance in cm and store it
+  IR_Sum = IR_Sum+value;
+  }  
+  float v=(IR_Sum/30); // average voltage over last 30 samples
+  float x = sqrt(-a/(c-v) + pow(b/(2*(c-v)),2)) - b/(2*(c-v));
+  Serial.println("Distance: "+String(x)+(" cm"));  //display the string e.g "Distance = 40 cm"
+  delay(100);//ten samples per second
 }
   
 
